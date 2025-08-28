@@ -10,7 +10,7 @@ import java.util.List;
 public class Song {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(nullable = false, length = 100)
     private String title;
@@ -38,11 +38,11 @@ public class Song {
         this.duration = duration;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

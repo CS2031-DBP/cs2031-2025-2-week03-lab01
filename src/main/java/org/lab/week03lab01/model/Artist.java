@@ -9,11 +9,11 @@ import java.time.LocalDate;
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String name;
 
-    @Column(nullable = false,  length = 200)
+    @Column(nullable = false, length = 200)
     private String bio;
 
     Date birthDate;
@@ -27,7 +27,7 @@ public class Artist {
         this.birthDate = birthDate;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,7 +43,7 @@ public class Artist {
         this.birthDate = birthDate;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

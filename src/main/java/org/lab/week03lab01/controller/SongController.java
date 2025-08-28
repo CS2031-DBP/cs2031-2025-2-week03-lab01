@@ -17,7 +17,7 @@ public class SongController {
         this.songService = songService;
     }
 
-    @PostMapping("/new")
+    @PostMapping
     public ResponseEntity<Song> createSong(@RequestBody Song song) {
         Song savedSong = songService.save(song);
         return ResponseEntity.ok(savedSong);
@@ -25,12 +25,12 @@ public class SongController {
 
     @GetMapping
     public ResponseEntity<List<Song>> getAllSongs() {
-        java.util.List<Song> songs = songService.findAll();
+        List<Song> songs = songService.findAll();
         return ResponseEntity.ok(songs);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Song> getSongById(@PathVariable long id) {
+    public ResponseEntity<Song> getSongById(@PathVariable Long id) {
         Song song = songService.findById(id);
         if (song != null) {
             return ResponseEntity.ok(song);
@@ -39,8 +39,8 @@ public class SongController {
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteSong(@RequestParam("id") long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSong(@PathVariable Long id) {
         songService.deleteById(id);
         return ResponseEntity.ok().build();
     }

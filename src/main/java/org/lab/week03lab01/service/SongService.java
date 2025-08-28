@@ -14,7 +14,7 @@ public class SongService {
         this.songRepository = songRepository;
     }
 
-    public Song save(org.lab.week03lab01.model.Song song) {
+    public Song save(Song song) {
         if (song != null && song.getTitle() != null && !song.getTitle().isEmpty()) {
              return songRepository.save(song);
         } else {
@@ -22,7 +22,7 @@ public class SongService {
         }
     }
 
-    public Song findById(long id) {
+    public Song findById(Long id) {
         return songRepository.findById(id).orElse(null);
     }
 
@@ -30,7 +30,7 @@ public class SongService {
         return songRepository.findAll();
     }
 
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         songRepository.deleteById(id);
     }
 }

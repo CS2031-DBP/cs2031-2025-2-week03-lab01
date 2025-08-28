@@ -8,7 +8,7 @@ import java.sql.Date;
 public class Album {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     private String title;
     private Date releaseDate;
@@ -23,11 +23,11 @@ public class Album {
         this.label = label;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
