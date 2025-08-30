@@ -3,6 +3,8 @@ package org.lab.week03lab01.model;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Album {
@@ -13,6 +15,9 @@ public class Album {
     private String title;
     private Date releaseDate;
     private String label;
+
+    @OneToMany(cascade = CascadeType.MERGE)
+    private List<Song> songs = new ArrayList<>();
 
     public Album() {
     }
@@ -55,4 +60,11 @@ public class Album {
         this.label = label;
     }
 
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
+    }
 }

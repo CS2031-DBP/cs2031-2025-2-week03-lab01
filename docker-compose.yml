@@ -3,10 +3,10 @@ version: "3.8"
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: week02-db
+    container_name: week03-db
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: jpa-db
+      POSTGRES_DB: week03-db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

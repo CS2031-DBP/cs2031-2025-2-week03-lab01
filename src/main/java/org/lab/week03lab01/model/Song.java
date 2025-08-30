@@ -19,9 +19,6 @@ public class Song {
     private Integer duration;
 
     // Relationships
-    @OneToMany
-    private List<Album> albums = new ArrayList<>();
-
     @ManyToOne
     private Genre genre;
 
@@ -68,5 +65,21 @@ public class Song {
 
     public void setDuration(Integer duration) {
         this.duration = duration;
+    }
+
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 }
