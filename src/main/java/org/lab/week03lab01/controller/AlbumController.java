@@ -21,15 +21,19 @@ public class AlbumController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Album>> findAll() {
-        var albums = albumService.findAll();
+    public ResponseEntity<List<Album>> getAllAlbums() {
+        List<Album> albums = albumService.findAll();
         return ResponseEntity.ok(albums);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Album> findById(@PathVariable Long id) throws AlbumNotFoundException {
-        var album = albumService.findById(id);
-        return ResponseEntity.ok(album);
+    public ResponseEntity<Album> getAlbumById(@PathVariable Long id) {
+        Album album = albumService.findById(id);
+        if (album != null) {
+            return ResponseEntity.ok(album);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
