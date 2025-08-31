@@ -27,7 +27,7 @@ public class AlbumController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Album> getAlbumById(@PathVariable Long id) {
+    public ResponseEntity<Album> getAlbumById(@PathVariable Long id) throws AlbumNotFoundException {
         Album album = albumService.findById(id);
         if (album != null) {
             return ResponseEntity.ok(album);
