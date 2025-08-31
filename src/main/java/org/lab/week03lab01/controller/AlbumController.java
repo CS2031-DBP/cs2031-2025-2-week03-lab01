@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("albums")
@@ -15,6 +16,22 @@ public class AlbumController {
 
     public AlbumController(AlbumService albumService) {
         this.albumService = albumService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Album>> getAllAlbums() {
+        List<Album> albums = albumService.findAll();
+        return ResponseEntity.ok(albums);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Album> getAlbumById(@PathVariable Long id) {
+        Album album = albumService.findById(id);
+        if (album != null) {
+            return ResponseEntity.ok(album);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

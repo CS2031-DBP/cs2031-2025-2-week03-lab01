@@ -4,6 +4,7 @@ import org.lab.week03lab01.model.Album;
 import org.lab.week03lab01.model.Song;
 import org.lab.week03lab01.repository.AlbumRepository;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class AlbumService {
@@ -13,6 +14,14 @@ public class AlbumService {
     public AlbumService(AlbumRepository albumRepository, SongService songService){
         this.albumRepository = albumRepository;
         this.songService = songService;
+    }
+
+    public Album findById(Long id) {
+        return albumRepository.findById(id).orElse(null);
+    }
+
+    public List<Album> findAll(){
+        return albumRepository.findAll();
     }
 
     public Album createAlbum(Album newAlbum) {
