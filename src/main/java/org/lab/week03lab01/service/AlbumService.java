@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public class AlbumService {
     private final AlbumRepository albumRepository;
-    private final SongRepository songRepository;
+    private final SongService songService;
 
-    public AlbumService(AlbumRepository albumRepository, SongRepository songRepository){
+    public AlbumService(AlbumRepository albumRepository, SongService songService){
         this.albumRepository = albumRepository;
-        this.songRepository = songRepository;
+        this.songService = songService;
     }
 
     public List<Album> findAll(){
@@ -33,7 +33,7 @@ public class AlbumService {
 
     public Album addSong(Long albumId, Long songId) throws AlbumNotFoundException {
         /// Add 404 custom exception
-        Song song = songRepository.findById(songId).orElseThrow();
+        Song song = songService.findById(songId);
         Album album = albumRepository.findById(albumId).orElseThrow(() -> new AlbumNotFoundException(albumId));
 
         /// Add 409 custom exception when song is already in tha album songs array
