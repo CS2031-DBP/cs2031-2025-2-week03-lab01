@@ -1,5 +1,6 @@
 package org.lab.week03lab01.controller;
 
+import org.lab.week03lab01.exceptions.SongNotFoundException;
 import org.lab.week03lab01.model.Song;
 import org.lab.week03lab01.service.SongService;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class SongController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Song> getSongById(@PathVariable Long id) {
+    public ResponseEntity<Song> getSongById(@PathVariable Long id) throws SongNotFoundException {
         Song song = songService.findById(id);
         if (song != null) {
             return ResponseEntity.ok(song);

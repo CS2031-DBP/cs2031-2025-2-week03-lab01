@@ -1,6 +1,7 @@
 package org.lab.week03lab01.controller;
 
 import org.lab.week03lab01.exceptions.AlbumNotFoundException;
+import org.lab.week03lab01.exceptions.SongNotFoundException;
 import org.lab.week03lab01.model.Album;
 import org.lab.week03lab01.service.AlbumService;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class AlbumController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Album> findById(@PathVariable Long id) {
+    public ResponseEntity<Album> findById(@PathVariable Long id) throws AlbumNotFoundException {
         var album = albumService.findById(id);
         return ResponseEntity.ok(album);
     }
@@ -39,7 +40,7 @@ public class AlbumController {
     }
 
     @PatchMapping("/{id}/add-song/{song_id}")
-    public ResponseEntity<Album> addSong(@PathVariable("id") Long albumId, @PathVariable("song_id") Long songId) throws AlbumNotFoundException {
+    public ResponseEntity<Album> addSong(@PathVariable("id") Long albumId, @PathVariable("song_id") Long songId) throws AlbumNotFoundException, SongNotFoundException {
         Album album = albumService.addSong(albumId, songId);
         return ResponseEntity.ok(album);
     }

@@ -16,3 +16,17 @@ public class SongNotFoundException extends Exception {
         return songId;
     }
 }
+
+//
+//public class SongNotFoundException extends NotFoundException {
+//    private final Long songId;
+//
+//    public SongNotFoundException(Long songId) {
+//        super("Song with id " + songId + " not found", "Song");
+//        this.songId = songId;
+//    }
+//
+//    public Long getSongId() {
+//        return songId;
+//    }
+//}

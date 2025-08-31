@@ -16,3 +16,16 @@ public class AlbumNotFoundException extends Exception {
         return albumId;
     }
 }
+//
+//public class AlbumNotFoundException extends NotFoundException {
+//    private final Long albumId;
+//
+//    public AlbumNotFoundException(Long albumId) {
+//        super("Album with id " + albumId + " not found", "Album");
+//        this.albumId = albumId;
+//    }
+//
+//    public Long getAlbumId() {
+//        return albumId;
+//    }
+//}

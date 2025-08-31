@@ -1,5 +1,6 @@
 package org.lab.week03lab01.service;
 
+import org.lab.week03lab01.exceptions.SongNotFoundException;
 import org.lab.week03lab01.model.Song;
 import org.lab.week03lab01.repository.SongRepository;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class SongService {
         }
     }
 
-    public Song findById(Long id) {
-        return songRepository.findById(id).orElse(null);
+    public Song findById(Long id) throws SongNotFoundException {
+        return songRepository.findById(id).orElseThrow(() -> new SongNotFoundException(id));
     }
 
     public List<Song> findAll(){
