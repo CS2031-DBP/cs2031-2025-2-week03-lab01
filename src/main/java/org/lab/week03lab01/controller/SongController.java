@@ -24,7 +24,7 @@ public class SongController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Song>> getAllSongs() {
+    public ResponseEntity<List<Song>> getAllSongs() throws Exception {
         List<Song> songs = songService.findAll();
         return ResponseEntity.ok(songs);
     }
