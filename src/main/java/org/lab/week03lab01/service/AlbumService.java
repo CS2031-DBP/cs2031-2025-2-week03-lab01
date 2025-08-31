@@ -3,8 +3,11 @@ package org.lab.week03lab01.service;
 import org.lab.week03lab01.exceptions.AlbumNotFoundException;
 import org.lab.week03lab01.exceptions.SongNotFoundException;
 import org.lab.week03lab01.model.Album;
+import org.lab.week03lab01.model.CreateAlbumDTO;
 import org.lab.week03lab01.model.Song;
 import org.lab.week03lab01.repository.AlbumRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -12,6 +15,9 @@ import java.util.List;
 public class AlbumService {
     private final AlbumRepository albumRepository;
     private final SongService songService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public AlbumService(AlbumRepository albumRepository, SongService songService){
         this.albumRepository = albumRepository;
@@ -26,7 +32,16 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
-    public Album createAlbum(Album newAlbum) {
+    public Album createAlbum(CreateAlbumDTO createAlbumDTO) {
+        Album newAlbum = new Album();
+        // MANUAL MAPPING
+//        newAlbum.setTitle(createAlbumDTO.title);
+//        // newAlbum.setReleaseDate(createAlbumDTO.releaseDate);
+//        newAlbum.setLabel(createAlbumDTO.label);
+
+        // AUTO MAPPING
+        modelMapper.map(createAlbumDTO, newAlbum);
+
         return albumRepository.save(newAlbum);
     }
 

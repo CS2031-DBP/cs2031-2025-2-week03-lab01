@@ -1,8 +1,10 @@
 package org.lab.week03lab01.controller;
 
+import jakarta.validation.Valid;
 import org.lab.week03lab01.exceptions.AlbumNotFoundException;
 import org.lab.week03lab01.exceptions.SongNotFoundException;
 import org.lab.week03lab01.model.Album;
+import org.lab.week03lab01.model.CreateAlbumDTO;
 import org.lab.week03lab01.service.AlbumService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +35,8 @@ public class AlbumController {
     }
 
     @PostMapping
-    public ResponseEntity<Album> createAlbum(@RequestBody Album newAlbum) {
-        Album createdAlbum = albumService.createAlbum(newAlbum);
+    public ResponseEntity<Album> createAlbum(@Valid @RequestBody CreateAlbumDTO createAlbumDTO) {
+        var createdAlbum = albumService.createAlbum(createAlbumDTO);
         URI location = URI.create("albums/" + createdAlbum.getId());
         return ResponseEntity.created(location).body(createdAlbum);
     }
