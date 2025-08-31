@@ -33,11 +33,7 @@ public class SongController {
     @GetMapping("/{id}")
     public ResponseEntity<Song> getSongById(@PathVariable Long id) throws SongNotFoundException {
         Song song = songService.findById(id);
-        if (song != null) {
-            return ResponseEntity.ok(song);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(song);
     }
 
     @DeleteMapping("/{id}")
