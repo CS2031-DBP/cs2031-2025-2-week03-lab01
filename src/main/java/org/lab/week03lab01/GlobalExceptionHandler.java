@@ -1,8 +1,7 @@
 package org.lab.week03lab01;
 
-import org.lab.week03lab01.exceptions.AlbumNotFoundException;
-import org.lab.week03lab01.exceptions.SongNotFoundException;
-// import org.lab.week03lab01.exceptions.NotFoundException;
+import org.lab.week03lab01.exceptions.ConflictException;
+import org.lab.week03lab01.exceptions.ResourceNotFoundException;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler({RuntimeException.class})
     public ProblemDetail genericHandler(RuntimeException ex){
         ProblemDetail problemDetail = ProblemDetail.forStatus(500);
         problemDetail.setTitle("Server Error");
@@ -18,35 +17,21 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
-    @ExceptionHandler(Exception.class)
-    public ProblemDetail exceptionHandler(Exception ex){
-        ProblemDetail problemDetail = ProblemDetail.forStatus(500);
-        problemDetail.setTitle("Oops");
+    /*
+    @ExceptionHandler({ConflictException.class})
+    public ProblemDetail conflictHandler(ConflictException ex){
+        ProblemDetail problemDetail = ProblemDetail.forStatus(409);
+        problemDetail.setTitle("Conflict Error");
         problemDetail.setDetail(ex.getMessage());
         return problemDetail;
     }
 
-    @ExceptionHandler(AlbumNotFoundException.class)
-    public ProblemDetail albumNotFoundHandler(AlbumNotFoundException ex){
+    @ExceptionHandler({ResourceNotFoundException.class})
+    public ProblemDetail notFoundHandler(ResourceNotFoundException ex){
         ProblemDetail problemDetail = ProblemDetail.forStatus(404);
-        problemDetail.setTitle("Album Not Found");
+        problemDetail.setTitle("Resource Not Found");
         problemDetail.setDetail(ex.getMessage());
         return problemDetail;
     }
-
-    @ExceptionHandler(SongNotFoundException.class)
-    public ProblemDetail songNotFoundHandler(SongNotFoundException ex){
-        ProblemDetail problemDetail = ProblemDetail.forStatus(404);
-        problemDetail.setTitle("Song Not Found");
-        problemDetail.setDetail(ex.getMessage());
-        return problemDetail;
-    }
-
-//    @ExceptionHandler(NotFoundException.class)
-//    public ProblemDetail notFoundHandler(NotFoundException ex){
-//        ProblemDetail problemDetail = ProblemDetail.forStatus(404);
-//        problemDetail.setTitle(ex.getTitle());
-//        problemDetail.setDetail(ex.getMessage());
-//        return problemDetail;
-//    }
+     */
 }
