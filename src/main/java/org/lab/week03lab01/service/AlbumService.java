@@ -2,23 +2,42 @@ package org.lab.week03lab01.service;
 
 import org.lab.week03lab01.exceptions.ConflictException;
 import org.lab.week03lab01.exceptions.ResourceNotFoundException;
+import org.lab.week03lab01.exceptions.SongNotFoundException;
 import org.lab.week03lab01.model.Album;
+import org.lab.week03lab01.model.CreateAlbumDTO;
 import org.lab.week03lab01.model.Song;
 import org.lab.week03lab01.repository.AlbumRepository;
 import org.lab.week03lab01.repository.SongRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AlbumService {
     private final AlbumRepository albumRepository;
     private final SongRepository songRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     public AlbumService(AlbumRepository albumRepository, SongRepository songRepository){
         this.albumRepository = albumRepository;
         this.songRepository = songRepository;
     }
 
-    public Album createAlbum(Album newAlbum) {
+    public Album findById(Long id) {
+        return albumRepository.findById(id).orElse(null);
+    }
+
+    public List<Album> findAll(){
+        return albumRepository.findAll();
+    }
+
+    public Album createAlbum(CreateAlbumDTO dto) {
+        Album newAlbum = new Album();
+        modelMapper.map(dto, newAlbum);
         return albumRepository.save(newAlbum);
     }
 
