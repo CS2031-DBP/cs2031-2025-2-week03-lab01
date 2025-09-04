@@ -1,8 +1,10 @@
 package org.lab.week03lab01.service;
 
 import org.lab.week03lab01.exceptions.SongNotFoundException;
+import org.lab.week03lab01.model.CreateSongDTO;
 import org.lab.week03lab01.model.Song;
 import org.lab.week03lab01.repository.SongRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,17 +12,17 @@ import java.util.List;
 @Service
 public class SongService {
     private final SongRepository songRepository;
+    private final ModelMapper modelMapper;
 
-    public SongService(SongRepository songRepository) {
+    public SongService(SongRepository songRepository, ModelMapper modelMapper) {
         this.songRepository = songRepository;
+        this.modelMapper = modelMapper;
     }
 
-    public Song save(Song song) {
-        if (song != null && song.getTitle() != null && !song.getTitle().isEmpty()) {
-             return songRepository.save(song);
-        } else {
-            throw new IllegalArgumentException("Song title cannot be null or empty");
-        }
+    public Song save(CreateSongDTO dto) {
+        var newSong = new Song();
+        modelMapper.map(dto, newSong);
+        return songRepository.save(newSong);
     }
 
     public Song findById(Long id) throws SongNotFoundException {

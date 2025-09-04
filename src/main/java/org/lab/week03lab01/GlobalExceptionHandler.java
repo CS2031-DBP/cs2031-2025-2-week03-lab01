@@ -3,8 +3,12 @@ package org.lab.week03lab01;
 import org.lab.week03lab01.exceptions.ConflictException;
 import org.lab.week03lab01.exceptions.ResourceNotFoundException;
 import org.springframework.http.ProblemDetail;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -34,4 +38,21 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
      */
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail genericHandler(MethodArgumentNotValidException ex){
+        ProblemDetail problemDetail = ProblemDetail.forStatus(400);
+        problemDetail.setTitle("Validation Error");
+        var error = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(x -> {
+                    return x.getField() + " " + x.getDefaultMessage();
+                })
+                .toList()
+                .getFirst();
+        problemDetail.setDetail(error);
+
+        return problemDetail;
+    }
 }

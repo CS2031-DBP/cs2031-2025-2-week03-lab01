@@ -3,6 +3,7 @@ package org.lab.week03lab01.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "appuser")
 public class User {
     @Id
     @GeneratedValue

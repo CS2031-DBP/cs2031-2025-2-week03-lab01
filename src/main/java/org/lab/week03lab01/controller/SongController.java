@@ -1,6 +1,8 @@
 package org.lab.week03lab01.controller;
 
+import jakarta.validation.Valid;
 import org.lab.week03lab01.exceptions.SongNotFoundException;
+import org.lab.week03lab01.model.CreateSongDTO;
 import org.lab.week03lab01.model.Song;
 import org.lab.week03lab01.service.SongService;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,8 @@ public class SongController {
     }
 
     @PostMapping
-    public ResponseEntity<Song> createSong(@RequestBody Song song) {
-        Song savedSong = songService.save(song);
+    public ResponseEntity<Song> createSong(@Valid @RequestBody CreateSongDTO dto) {
+        Song savedSong = songService.save(dto);
         return ResponseEntity.ok(savedSong);
     }
 
