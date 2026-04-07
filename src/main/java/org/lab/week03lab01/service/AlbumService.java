@@ -5,17 +5,25 @@ import org.lab.week03lab01.exceptions.ResourceNotFoundException;
 import org.lab.week03lab01.model.Album;
 import org.lab.week03lab01.model.Song;
 import org.lab.week03lab01.repository.AlbumRepository;
-import org.lab.week03lab01.repository.SongRepository;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class AlbumService {
     private final AlbumRepository albumRepository;
-    private final SongRepository songRepository;
+    private final SongService songService;
 
-    public AlbumService(AlbumRepository albumRepository, SongRepository songRepository){
+    public AlbumService(AlbumRepository albumRepository, SongService songService){
         this.albumRepository = albumRepository;
-        this.songRepository = songRepository;
+        this.songService = songService;
+    }
+
+    public Album findById(Long id) {
+        return albumRepository.findById(id).orElse(null);
+    }
+
+    public List<Album> findAll(){
+        return albumRepository.findAll();
     }
 
     public Album createAlbum(Album newAlbum) {
@@ -23,8 +31,8 @@ public class AlbumService {
     }
 
     public Album addSong(Long albumId, Long songId) {
-
-        Song song = songRepository.findById(songId).orElseThrow();
+        /// Add 404 custom exception
+        Song song = songService.findById(songId);
         Album album = albumRepository.findById(albumId).orElseThrow();
 
 
